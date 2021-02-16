@@ -1,0 +1,23 @@
+DROP DATABASE spring_security
+CREATE DATABASE spring_security_db
+CREATE TABLE IF NOT EXISTS users(
+    id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    active TINYINT
+    UNIQUE (id, user_name)
+);
+
+CREATE TABLE IF NOT EXISTS roles(
+    id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    role VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users_roles(
+    id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (role_id) REFERENCES roles(id),
+    UNIQUE (user_id, role_id)
+);

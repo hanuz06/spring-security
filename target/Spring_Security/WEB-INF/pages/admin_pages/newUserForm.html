@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New user</title>
+</head>
+<body>
+
+<form th:object="${user}" th:action="@{/admin/user/add}" th:method="POST">
+    <label for="userName">Enter name: </label>
+    <input type="text" th:field="*{userName}" id="userName"/>
+    <br/>
+    <br/>
+    <label for="password">Enter password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br/>
+
+    <br/>
+    <label for="userRoles">Select role: </label>
+    <br/>
+<!--    <select multiple id="userRoles" name="userRoles">-->
+<!--        <option th:value="ROLE_USER"> USER </option>-->
+<!--        <option th:value="ROLE_ADMIN"> ADMIN </option>-->
+<!--    </select>-->
+    <select multiple id="userRoles" name="userRoles">
+    <option value=""> - Select role - </option>
+        <option th:each="role : ${allRoles}"
+                th:value="${role.id}"
+                th:text="${role.role}"> Role name </option>
+    </select>
+    <br/>
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+
+</body>
+</html>

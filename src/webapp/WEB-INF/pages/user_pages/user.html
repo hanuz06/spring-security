@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+    <h1>This a user page!</h1>
+    <p th:text="${user.getUserName()}">User name</p>
+    <p th:text="${user.getPassword()}">User password</p>
+    <p th:text="${user.getActive()}">Is user active or not</p>
+    <form action="/" method="GET">
+        <button type="submit">Go to landing page</button>
+    </form>
+    <br/>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

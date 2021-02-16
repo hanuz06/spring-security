@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+</head>
+<body>
+<div>
+    <th:block th:each="user : ${users}">
+        <div>
+            <h3 th:text="${user.getUserName()}">Username</h3>
+            <a th:href="@{/admin/user/{id}/edit(id=${user.getId()})}" th:text="|Edit ${user.getUserName()} |">Edit</a>
+        </div>
+    </th:block>
+    <br/>
+    <form action="/admin/user/new" method="GET">
+        <button type="submit">Add user</button>
+    </form>
+    <br/>
+    <form action="/" method="GET">
+        <button type="submit">Go to landing page</button>
+    </form>
+    <br/>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+</body>
+</html>
