@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Admin page</title>
@@ -11,6 +10,10 @@
         <div>
             <h3 th:text="${user.getUserName()}">Username</h3>
             <a th:href="@{/admin/user/{id}/edit(id=${user.getId()})}" th:text="|Edit ${user.getUserName()} |">Edit</a>
+            <form th:method="POST" th:action="@{/admin/delete/{id}(id=${user.getId()})}">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="submit" value="Delete">
+            </form>
         </div>
     </th:block>
     <br/>

@@ -1,6 +1,5 @@
 package web.controller;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,42 +33,42 @@ public class AdminController {
 
     @GetMapping("/user/new")
     public String createUserForm(Model model){
-        List<Role> allRoles = roleService.listRoles();
+        List<Role> roles = roleService.listRoles();
         model.addAttribute("user", new User());
-        model.addAttribute("allRoles", allRoles);
+        model.addAttribute("allRoles", roles);
         return "admin_pages/newUserForm";
     }
 
     @PostMapping("/user/add")
-    public String addUser(@ModelAttribute("user") User user, @RequestParam("userRoles") Long[] roleIds){
+    public String addUser(@ModelAttribute("user") User user, @RequestParam("userRoles") Long[] roleIds, @RequestParam(value = "active", required = false) boolean active){
+        user.setActive(active);
         Set<Role> roleSet = new HashSet<>();
         for (Long id: roleIds){
             roleSet.add(roleService.findByRoleId(id));
         }
         user.setRoles(roleSet);
+        System.out.println("ACTIVE "+active);
 
         if(user.getId()==null){
             userService.addUser(user);
         }else {
             userService.updateUser(user);
         }
-        return "redirect:admin_pages/admin";
+        return "redirect:/admin";
 
     }
 
     @GetMapping("/user/{id}/edit")
     public String updateUserForm(@PathVariable("id") Long id, Model model){
+        List<Role> roles = roleService.listRoles();
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("allRoles", roles);
         return "admin_pages/userEditForm";
     }
 
-//    @PostMapping("/user/update")
-//    public void updateUser(@RequestBody User user, Model model){
-//
-//    }
-
     @PostMapping("/delete/{userId}")
-    public void deleteUser(@PathVariable Long userId){
-
+    public String deleteUser(@PathVariable Long userId){
+        userService.deleteUser(userId);
+        return "redirect:/admin";
     }
 }

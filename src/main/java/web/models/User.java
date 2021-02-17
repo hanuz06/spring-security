@@ -28,13 +28,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String userName, String password) {
+    public User(String userName, String password, boolean active) {
         this.userName = userName;
         this.password = password;
-        this.active = true;
+        this.active = active;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles", 
             joinColumns = @JoinColumn(name = "user_id"),
@@ -73,8 +73,8 @@ public class User implements UserDetails {
         return active;
     }
 
-    public boolean setActive(boolean active){
-        return active;
+    public void setActive(boolean active){
+        this.active = active;
     };
 
     @Override

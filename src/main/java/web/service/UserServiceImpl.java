@@ -30,6 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
+    public void deleteUser(Long id) {
+        userDaoImpl.deleteUser(id);
+    }
+
+    @Transactional
+    @Override
     public Optional<User> findByUserName(String userName) {
         return userDaoImpl.findByUserName(userName);
     }

@@ -23,15 +23,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void addUser(User user) {
-        String password = passwordEncoder.encode(user.getPassword());
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
     @Override
     public void updateUser(User user) {
-        String password = passwordEncoder.encode(user.getPassword());
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.merge(user);
     }
     
@@ -47,9 +45,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void deleteUser(Long id) {
+        User userToBeDeleted = getUserById(id);
+        if (userToBeDeleted!=null){
+            entityManager.remove(userToBeDeleted);
+        }
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
-//        TypedQuery<User> query = (TypedQuery<User>) entityManager.createQuery("SELECT e FROM User e");
         return entityManager.createQuery("FROM User", User.class).getResultList();
     }
 

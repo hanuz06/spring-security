@@ -9,7 +9,11 @@ import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    UserDao userDaoImpl;
+    private UserDao userDaoImpl;
+
+    public RoleServiceImpl(UserDao userDaoImpl) {
+        this.userDaoImpl = userDaoImpl;
+    }
 
     @Transactional
     @Override

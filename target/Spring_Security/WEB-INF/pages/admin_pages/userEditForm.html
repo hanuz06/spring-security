@@ -16,9 +16,15 @@
     <input type="text" th:field="*{password}" th:value="${user.setPassword('')}" id="lastName"/>
     <br/>
     <br/>
-    <select th:field = "*{roles}" multiple id="roles" name="roles">
-        <option th:each="role : ${user.getRoles()}"
-                th:value="${role.role}"
+    <label for="active">User is active: </label>
+    <input type="checkbox" th:field="*{active}" th:checked="${user.getActive()}" id="active"/>
+    <br/>
+    <br/>
+    <label for="userRoles">Select role: </label>
+    <br/>
+    <select multiple id="userRoles" name="userRoles">
+        <option th:each="role : ${allRoles}"
+                th:value="${role.id}"
                 th:text="${role.role}"> Role name </option>
     </select>
     <input type="submit" value="Update!"/>

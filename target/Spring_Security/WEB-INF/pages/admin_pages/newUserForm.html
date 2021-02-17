@@ -14,19 +14,19 @@
     <label for="password">Enter password: </label>
     <input type="text" th:field="*{password}" id="password"/>
     <br/>
-
+    <br/>
+    <label for="active">User is active: </label>
+    <input type="checkbox" th:field="*{active}" id="active"/>
+    <br/>
     <br/>
     <label for="userRoles">Select role: </label>
     <br/>
-<!--    <select multiple id="userRoles" name="userRoles">-->
-<!--        <option th:value="ROLE_USER"> USER </option>-->
-<!--        <option th:value="ROLE_ADMIN"> ADMIN </option>-->
-<!--    </select>-->
     <select multiple id="userRoles" name="userRoles">
     <option value=""> - Select role - </option>
         <option th:each="role : ${allRoles}"
                 th:value="${role.id}"
-                th:text="${role.role}"> Role name </option>
+                th:text="${role.role}"> Role name
+        </option>
     </select>
     <br/>
     <br/>
