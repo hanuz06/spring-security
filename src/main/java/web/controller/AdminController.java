@@ -47,7 +47,6 @@ public class AdminController {
             roleSet.add(roleService.findByRoleId(id));
         }
         user.setRoles(roleSet);
-        System.out.println("ACTIVE "+active);
 
         if(user.getId()==null){
             userService.addUser(user);
